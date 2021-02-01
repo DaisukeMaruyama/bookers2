@@ -12,7 +12,9 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+    # devise.rb authentication_keys(name) と password, password_confirmationはデフォルトで許可されている
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email])
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:name, :email])
   end
 
 
