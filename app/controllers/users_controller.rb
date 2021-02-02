@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
 
   def index
     @users = User.all
@@ -16,9 +17,12 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    @user = User.update(user_params)
-    @user.save
-    redirect_to user_path
+    @user.update(user_params)
+    if @user.save
+       redirect_to user_path(@user)
+    else
+       render action: :edit
+    end
   end
 
   private

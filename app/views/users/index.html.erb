@@ -1,12 +1,19 @@
-<% if flash[:notice] %>
-  <p><%= flash[:notice] %></p>
-<% end %>
 <div class='container px-5 pt-3 px-sm-0'>
+  <% if @book.errors.any? %>
+    <div class="error-explanation">
+      <h3><%= @book.errors.count %> errors prohibited this book from being saved</h3>
+      <% @book.errors.full_messages.each do |message| %>
+      <ul>
+        <li><%= message %></li>
+      </ul>
+      <% end %>
+    </div>
+  <% end %>
   <div class='row'>
     <div class='col-md-3'>
         <h2>User info</h2>
         <table class='table'>
-          <tr><span><%= attachment_image_tag @user, :profile_image, size:'40×40', format: 'jpeg', fallback: "no_image.jpg" %></span></tr>
+          <tr><span><%= attachment_image_tag current_user, :profile_image, :fill,90,90, format: 'jpeg', fallback: "no_image.jpg", size:"90×90" %></span></tr>
           <tr>
           	<th>name</th>
           	<th><%= current_user.name %></th>
@@ -22,7 +29,9 @@
         <% end %>
 
         <h2 class="mt-3">New book</h2>
-          <%= form_with model: @book, local:true do |f| %>
+
+          <%= form_with model: @book, local: true do |f| %>
+
             <div class="field">
               <%= f.label :title %><br />
               <%= f.text_field :title, class: "edit-title" %>
@@ -51,7 +60,7 @@
           <tbody>
             <% @users.each do |user| %>
       			<tr class="new-table">
-      				<td><span><%= attachment_image_tag user, :profile_image, :fill, 40, 40, format: 'jpeg', fallback: "no_image.jpg" %></span></td>
+      				<td><span><%= attachment_image_tag user, :profile_image, :fill, 40, 40, format: 'jpeg', fallback: "no_image.jpg", size:'40x40' %></span></td>
       				<td><span><%= user.name %></span></td>
       				<td><span><%= link_to "show",user_path(user) %></span></td>
       			</tr>
