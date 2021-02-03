@@ -62,7 +62,7 @@
       			<tr class="new-table">
       				<td><span><%= attachment_image_tag user, :profile_image, :fill, 40, 40, format: 'jpeg', fallback: "no_image.jpg", size:'40x40' %></span></td>
       				<td><span><%= user.name %></span></td>
-      				<td><span><%= link_to "show",user_path(user) %></span></td>
+      				<td><span><%= link_to "Show",user_path(user) %></span></td>
       			</tr>
       			<% end %>
          </tbody>
